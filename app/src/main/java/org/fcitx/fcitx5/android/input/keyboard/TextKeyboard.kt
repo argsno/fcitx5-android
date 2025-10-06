@@ -91,6 +91,7 @@ class TextKeyboard(
     }
 
     private val keepLettersUppercase by AppPrefs.getInstance().keyboard.keepLettersUppercase
+    private var doUppercase = false
 
     init {
         updateLangSwitchKey(showLangSwitchKey.getValue())
@@ -171,6 +172,13 @@ class TextKeyboard(
         }
         if (capsState != CapsState.None) {
             switchCapsState()
+        } else {
+            doUppercase = if (ime.displayName == "English") {
+                false
+            } else {
+                keepLettersUppercase
+            }
+            updateAlphabetKeys()
         }
     }
 
@@ -232,6 +240,7 @@ class TextKeyboard(
             it.mainText.text = it.def.displayText.let { str ->
                 if (str.length != 1 || !str[0].isLetter()) return@forEach
                 if (keepLettersUppercase) str.uppercase() else transformAlphabet(str)
+                if (doUppercase) str.uppercase() else transformAlphabet(str)
             }
         }
     }
