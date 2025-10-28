@@ -174,9 +174,9 @@ class TextKeyboard(
             switchCapsState()
         } else {
             doUppercase = if (ime.displayName == "English") {
-                false
-            } else {
                 keepLettersUppercase
+            } else {
+                true
             }
             updateAlphabetKeys()
         }
