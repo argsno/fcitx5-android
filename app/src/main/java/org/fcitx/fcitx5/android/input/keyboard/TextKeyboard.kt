@@ -239,8 +239,7 @@ class TextKeyboard(
             if (it.def !is KeyDef.Appearance.AltText) return
             it.mainText.text = it.def.displayText.let { str ->
                 if (str.length != 1 || !str[0].isLetter()) return@forEach
-                if (keepLettersUppercase) str.uppercase() else transformAlphabet(str)
-                if (doUppercase) str.uppercase() else transformAlphabet(str)
+                if (keepLettersUppercase || doUppercase) str.uppercase() else transformAlphabet(str)
             }
         }
     }
